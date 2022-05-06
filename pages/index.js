@@ -131,7 +131,7 @@ export default function Home() {
                 Then count the seconds since Satoshi introduced the Bitcoin Whitepaper
               </p>
               <div className="mockup-code">
-  <pre><code>let secondsSinceSatoshi = moment().unix() - moment.utc('2008-10-31 18:10:00 UTC', '"YYYY-MM-DD HH:MM:SS"').unix();</code></pre>
+  <pre><code>let secondsSinceSatoshi = moment().unix() - moment.utc("2008-10-31 18:10:00 UTC", "YYYY-MM-DD HH:MM:SS").unix();</code></pre>
 </div>
               </div>
 
