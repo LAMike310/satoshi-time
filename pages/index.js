@@ -5,10 +5,12 @@ import { useState, useEffect, createRef} from "react";
 import axios from 'axios';
 const HumanElapsed = require('human-elapsed')
 import moment from 'moment';
+import QRCode from "react-qr-code";
+
 export default function Home() {
 
-  const [currentSatoshiTime, setSatoshiTime] = useState(null);
-  const [timeAfterSatoshi, setTimeAfterSatoshi] = useState(null)
+  const [currentSatoshiTime, setSatoshiTime] = useState('');
+  const [timeAfterSatoshi, setTimeAfterSatoshi] = useState('')
 
   const MINUTE_MS = 1000;
 
@@ -72,15 +74,18 @@ export default function Home() {
         <div className="hero min-h-screen bg-base-200">
           <div className="hero-content text-center">
             <div className="max-w-lg">
-              <h1 className="text-xl font-bold mb-10">{currentSatoshiTime ? currentSatoshiTime : ''}</h1>
-              <h1 className="text-md font-bold mb-10">Satoshi was first seen {HumanElapsed(timeAfterSatoshi)} ago</h1>
+              <h1 className="text-xl font-bold mb-10">{currentSatoshiTime}</h1>
+              <div className="flex flex-grid justify-center mb-10"> 
+                <QRCode value={currentSatoshiTime} />
+              </div>
+              <h1 className="text-md font-bold mb-10">{HumanElapsed(timeAfterSatoshi)} after Satoshi</h1>
               <p>
                 Satoshi Time is a universal, decentralized clock, that is easy to calculate based on the number of seconds that have passed since Satoshi appeared on the Internet with the idea of Bitcoin.
               </p>
 
               <h1 className="text-3xl font-bold mt-10">How does is work?</h1>
               <p className="text-2xl font-bold mt-10 mb-10">
-                First, you create a BIP-39 wallet with this seed phrase:
+                1. Create a BIP-39 wallet with this seed phrase:
               </p>
               <div>
               <div className="overflow-x-auto">
@@ -128,7 +133,7 @@ export default function Home() {
   </table>
 </div>
               <p className="text-2xl font-bold mt-10 mb-10">
-                Then count the seconds since Satoshi introduced the Bitcoin Whitepaper
+                2. Count the seconds since Satoshi introduced the Bitcoin Whitepaper
               </p>
               <div className="mockup-code">
   <pre><code>let secondsSinceSatoshi = moment().unix() - moment.utc("2008-10-31 18:10:00 UTC", "YYYY-MM-DD HH:MM:SS").unix();</code></pre>
@@ -136,7 +141,7 @@ export default function Home() {
               </div>
 
               <p className="text-2xl font-bold mt-10 mb-10">
-                Using that value as the derivation path, you can create a unique address
+                3. Use the result in the derivation path
               </p>
               <div className="mockup-code">
                 <pre><code>m/84'/0'/0'/0/secondsSinceSatoshi</code></pre>
@@ -145,9 +150,7 @@ export default function Home() {
                 There are enough addresses for every second until the last Bitcoin is mined!
               </p>
               </div>
-
-              
-              <button className="btn btn-primary mt-10" onClick={() => window.open('https://github.com/LAMike310/satoshi-time', '_blank')}>View Code</button>
+              <button className="btn btn-primary mt-5 mb-10" onClick={() => window.open('https://github.com/LAMike310/satoshi-time', '_blank')}>View Code</button>
             </div>
           </div>
         </div>
